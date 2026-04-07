@@ -35,6 +35,10 @@ logs/
 tmp/
 .temp/
 .cache/
+memory/
+
+# Local secrets / overrides
+.env
 
 # Skill package archives
 *.skill

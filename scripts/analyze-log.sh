@@ -2,12 +2,14 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-DEFAULT_LOG="$ROOT_DIR/memory/security-log.jsonl"
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR/load-config.sh"
+
+DEFAULT_LOG="$PSL_LOG_PATH"
 LOG_PATH="${1:-$DEFAULT_LOG}"
 HOURS="${2:-24}"
 
-if [[ "${PSL_ALLOW_ANY_LOG_PATH:-0}" != "1" && "$LOG_PATH" != "$DEFAULT_LOG" ]]; then
+if [[ "$PSL_ALLOW_ANY_LOG_PATH" != "1" && "$LOG_PATH" != "$DEFAULT_LOG" ]]; then
   echo "[analyze-log] blocked: custom log path disabled by default."
   echo "[analyze-log] use default path or set PSL_ALLOW_ANY_LOG_PATH=1 explicitly."
   exit 2
