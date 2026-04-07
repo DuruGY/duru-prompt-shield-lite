@@ -42,3 +42,6 @@ memory/
 
 # Skill package archives
 *.skill
+
+# Local .qodo/
+.qodo/
